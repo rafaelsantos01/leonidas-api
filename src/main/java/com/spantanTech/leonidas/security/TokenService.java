@@ -52,7 +52,7 @@ public class TokenService {
       Algorithm algorithm = Algorithm.HMAC256(secret);
 
       return JWT.require(algorithm)
-        .withIssuer("rifa-api")
+        .withIssuer("leonidas-api")
         .build()
         .verify(token)
         .getSubject();
