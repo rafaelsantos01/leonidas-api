@@ -1,0 +1,66 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="rafinhapsantos50@gmail.com" id="organization-3">
+        <createTable tableName="organization">
+
+            <column type="uuid" name="id" defaultValueComputed="uuid_generate_v4()">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="organizationPK" />
+            </column>
+
+            <column type="varchar(255)" name="organization_name">
+                <constraints nullable="false" />
+            </column>
+
+            <column type="varchar(60)" name="fantasy_name">
+                <constraints nullable="false"  />
+            </column>
+
+            <column type="varchar(255)" name="cnpj">
+                <constraints nullable="false"/>
+            </column>
+
+            <column type="boolean" name="status">
+                <constraints nullable="true"  />
+            </column>
+
+            <column type="varchar(255)" name="email">
+                <constraints nullable="false"  />
+            </column>
+
+
+            <column type="timestamp" name="created_at" defaultValueComputed="now()">
+                <constraints nullable="false"  />
+            </column>
+
+            <column type="timestamp" name="updated_at" defaultValueComputed="now()">
+                <constraints nullable="false"  />
+            </column>
+
+            <column name="user_updated" type="UUID">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="user_created" type="UUID">
+                <constraints nullable="true"/>
+            </column>
+
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="organization" baseColumnNames="user_created" constraintName="userCreated_organization_Fk"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 validate="true"
+        />
+
+        <addForeignKeyConstraint baseTableName="organization" baseColumnNames="user_updated" constraintName="userUpdated_organization_Fk"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 validate="true"
+        />
+
+    </changeSet>
+</databaseChangeLog>
