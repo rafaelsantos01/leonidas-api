@@ -47,6 +47,7 @@ public class SecurityConfigurations {
       .and()
       .authorizeHttpRequests(authorize -> authorize
                       .antMatchers(AUTH_WHITELIST).permitAll()
+                      .antMatchers(HttpMethod.PUT,"/auth/confirmation/**").permitAll()
                       .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                       .antMatchers(HttpMethod.POST, "/auth/register").permitAll()
                       .antMatchers(HttpMethod.PUT, "/auth/refresh").permitAll()

@@ -28,6 +28,4 @@ public class RegisterDTO {
   @NotNull @NotBlank @NotEmpty
   private String password_confirmation;
 
-
-  private UserRole permission;
 }
