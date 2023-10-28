@@ -2,7 +2,7 @@ package com.spantanTech.leonidas.shared.entities;
 
 
 import com.spantanTech.leonidas.modules.users.entities.Users;
-import com.spantanTech.leonidas.security.context.SetUserService;
+import com.spantanTech.leonidas.security.context.SetUserSession;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -34,10 +34,10 @@ public class DateBase {
 
   @PrePersist
   private void beforePersist(){
-    SetUserService setUserService = new SetUserService();
+    SetUserSession getDataSession = new SetUserSession();
 
     if(this.userCreated == null || this.userUpdated == null){
-      Users users = setUserService.execute();
+      Users users = getDataSession.execute();
       this.userCreated = users;
       this.userUpdated = users;
     }
@@ -46,9 +46,9 @@ public class DateBase {
   @PreUpdate
   private void beforeUpdate(){
 
-    SetUserService setUserService = new SetUserService();
+    SetUserSession getDataSession = new SetUserSession();
     if( this.userUpdated == null){
-        this.userUpdated = setUserService.execute();
+        this.userUpdated = getDataSession.execute();
     }
 
   }

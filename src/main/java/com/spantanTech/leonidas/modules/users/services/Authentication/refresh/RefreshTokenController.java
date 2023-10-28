@@ -1,12 +1,12 @@
 package com.spantanTech.leonidas.modules.users.services.Authentication.refresh;
 
+import com.spantanTech.leonidas.modules.users.services.Authentication.dto.LoginResponseDTO;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @Tag(name = "Autenticação")
 @RestController
@@ -14,12 +14,17 @@ import javax.validation.Valid;
 public class RefreshTokenController {
 
 
-    @ApiOperation("Endpoint responsável por agerar um novo token para o usuário")
-    @Tag(name = "Autenticação")
-    @PutMapping("/refresh")
-    @ResponseBody
-    public ResponseEntity<Void> register(@RequestBody @Valid String token){
+    @Autowired
+    RefreshTokenService tokenService;
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @ApiOperation("Endpoint responsável por realizar refresh do token do usuário.")
+    @Tag(name = "Autenticação")
+    @PostMapping("/refresh")
+    @ResponseBody
+    public ResponseEntity<LoginResponseDTO> refresh(@RequestHeader("Authorization") String refreshToken){
+
+        LoginResponseDTO token = tokenService.handle(refreshToken);
+
+        return new ResponseEntity<>(token, HttpStatus.OK);
     }
 }

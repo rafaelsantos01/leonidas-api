@@ -10,7 +10,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.swing.text.Document;
 
 @Service
 public class SendEmailService {
@@ -54,7 +53,7 @@ public class SendEmailService {
 
 
     public String newUserTemplate(String html, String nome, String url) {
-        html = html.replace("{nome}", nome);
+        html = html.replace("{name}", nome);
         html = html.replace("{url}", url);
         return html;
     }

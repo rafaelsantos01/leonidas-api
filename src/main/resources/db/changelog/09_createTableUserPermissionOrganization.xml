@@ -1,0 +1,102 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="rafinhapsantos50@gmail.com" id="user_permission_organization-3">
+        <createTable tableName="user_permission_organization">
+
+            <column type="uuid" name="id" defaultValueComputed="uuid_generate_v4()">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_permission_organizationPK" />
+            </column>
+
+            <column name="user_id" type="UUID">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="organization_id" type="UUID">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="permission_organization_id" type="UUID">
+                <constraints nullable="true"/>
+            </column>
+
+            <column type="boolean" name="status">
+                <constraints nullable="true"  />
+            </column>
+
+            <column type="boolean" name="can_view">
+                <constraints nullable="true"  />
+            </column>
+
+            <column type="boolean" name="can_update">
+                <constraints nullable="true"  />
+            </column>
+
+            <column type="boolean" name="can_create">
+                <constraints nullable="true"  />
+            </column>
+
+            <column type="boolean" name="can_inative">
+                <constraints nullable="true"  />
+            </column>
+
+            <column type="timestamp" name="created_at" defaultValueComputed="now()">
+                <constraints nullable="false"  />
+            </column>
+
+            <column type="timestamp" name="updated_at" defaultValueComputed="now()">
+                <constraints nullable="false"  />
+            </column>
+
+            <column name="user_updated" type="UUID">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="user_created" type="UUID">
+                <constraints nullable="true"/>
+            </column>
+
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="user_permission_organization" baseColumnNames="organization_id" constraintName="user_permission_organization_organization_Fk"
+                                 referencedTableName="organization"
+                                 referencedColumnNames="id"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 validate="true"
+        />
+
+        <addForeignKeyConstraint baseTableName="user_permission_organization" baseColumnNames="permission_organization_id" constraintName="permission_organization_Fk"
+                                 referencedTableName="permission_organization"
+                                 referencedColumnNames="id"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 validate="true"
+        />
+
+        <addForeignKeyConstraint baseTableName="user_permission_organization" baseColumnNames="user_id" constraintName="user2_permission_organization_Fk"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 validate="true"
+        />
+
+
+        <addForeignKeyConstraint baseTableName="user_permission_organization" baseColumnNames="user_created" constraintName="userCreated_per_user_organization_Fk"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 validate="true"
+        />
+
+        <addForeignKeyConstraint baseTableName="user_permission_organization" baseColumnNames="user_updated" constraintName="userUpdated_per_user_organization_Fk"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 validate="true"
+        />
+
+    </changeSet>
+</databaseChangeLog>

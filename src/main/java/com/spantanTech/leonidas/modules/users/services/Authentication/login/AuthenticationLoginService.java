@@ -1,5 +1,7 @@
 package com.spantanTech.leonidas.modules.users.services.Authentication.login;
 
+import com.spantanTech.leonidas.modules.organization.entities.UserOrganization;
+import com.spantanTech.leonidas.modules.organization.repository.UserOrganizationRepository;
 import com.spantanTech.leonidas.modules.users.entities.Users;
 import com.spantanTech.leonidas.modules.users.repository.UsersRepository;
 import com.spantanTech.leonidas.modules.users.services.Authentication.dto.AuthenticationDTO;
@@ -12,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -26,6 +29,7 @@ public class AuthenticationLoginService {
 
   @Autowired
   private TokenService tokenService;
+
 
 //  public LoginResponseDTO handle(AuthenticationDTO data){
 //    LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
@@ -55,17 +59,16 @@ public class AuthenticationLoginService {
       Authentication auth = authenticationManager.authenticate(usernamePassword);
 
       if (auth.isAuthenticated()) {
-        // Obter as permissões do usuário autenticado
         List<String> permissions = auth.getAuthorities()
           .stream()
           .map(GrantedAuthority::getAuthority)
           .collect(Collectors.toList());
 
 
-        String acess = tokenService.generateToken((Users) auth.getPrincipal());
+        String access = tokenService.generateToken((Users) auth.getPrincipal());
         String refresh = tokenService.generateRefreshToken((Users) auth.getPrincipal());
 
-        loginResponseDTO.setAccess_token(acess);
+        loginResponseDTO.setAccess_token(access);
         loginResponseDTO.setRefresh_token(refresh);
 
         loginResponseDTO.setPermission(permissions);
